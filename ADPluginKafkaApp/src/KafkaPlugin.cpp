@@ -11,6 +11,7 @@
 #include <iocsh.h>
 
 #include <asynDriver.h>
+#include <asynPortDriver.h>
 #include <ciso646>
 #include <epicsExport.h>
 #include <string.h>
