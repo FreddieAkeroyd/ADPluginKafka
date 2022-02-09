@@ -3,7 +3,7 @@ cmake_minimum_required(VERSION 3.12 FATAL_ERROR)
 add_definitions(-std=c++11 -pthread) #-v = verbose
 
 find_package(GTest REQUIRED)
-find_package(librdkafka REQUIRED)
+find_package(RdKafka REQUIRED)
 
 if (NOT DEFINED ENV{EPICS_BASE})
     message(FATAL_ERROR "Missing environment variable \"EPICS_BASE\".")
@@ -84,7 +84,7 @@ list(TRANSFORM Plugin_SRC PREPEND "../ADPluginKafkaApp/src/")
 list(TRANSFORM Plugin_INC PREPEND "../ADPluginKafkaApp/src/")
 
 add_library(Plugin OBJECT ${Plugin_SRC} ${Plugin_INC})
-target_link_libraries(Plugin PUBLIC epics librdkafka::librdkafka)
+target_link_libraries(Plugin PUBLIC epics RdKafka::RdKafka)
 target_include_directories(Plugin PRIVATE ../ADPluginKafkaApp/src/)
 
 set(Test_SRC

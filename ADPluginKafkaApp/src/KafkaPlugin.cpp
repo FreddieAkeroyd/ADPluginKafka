@@ -213,7 +213,7 @@ asynStatus KafkaPlugin::readInt64(asynUser *pasynUser, epicsInt64 *value) {
   if (status != asynSuccess)
     return status;
 
-  if (not ParamRegistrar.read<int64_t>(function, *value) and NDPluginDriver::readInt64(pasynUser, value) != asynSuccess) {
+  if (not ParamRegistrar.read<epicsInt64>(function, *value) and NDPluginDriver::readInt64(pasynUser, value) != asynSuccess) {
     status = asynError;
   }
 
