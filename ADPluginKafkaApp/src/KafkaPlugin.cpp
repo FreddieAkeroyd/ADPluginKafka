@@ -126,7 +126,7 @@ asynStatus KafkaPlugin::writeInt32(asynUser *pasynUser, epicsInt32 value) {
   const int function{pasynUser->reason};
   static const char *functionName = "writeInt32";
 
-  if (ParamRegistrar.write<int32_t>(function, value) or
+  if (ParamRegistrar.write<epicsInt32>(function, value) or
       NDPluginDriver::writeInt32(pasynUser, value) == asynSuccess) {
     /* Set the parameter in the parameter library. */
     setIntegerParam(function, value);
@@ -158,7 +158,7 @@ asynStatus KafkaPlugin::readInt32(asynUser *pasynUser, epicsInt32 *value) {
   if (status != asynSuccess)
     return status;
 
-  if (not ParamRegistrar.read<int32_t>(function, *value) and NDPluginDriver::readInt32(pasynUser, value) != asynSuccess) {
+  if (not ParamRegistrar.read<epicsInt32>(function, *value) and NDPluginDriver::readInt32(pasynUser, value) != asynSuccess) {
     status = asynError;
   }
 
@@ -180,7 +180,7 @@ asynStatus KafkaPlugin::writeInt64(asynUser *pasynUser, epicsInt64 value) {
   const int function{pasynUser->reason};
   static const char *functionName = "writeInt64";
 
-  if (ParamRegistrar.write<int64_t>(function, value) or
+  if (ParamRegistrar.write<epicsInt64>(function, value) or
       NDPluginDriver::writeInt64(pasynUser, value) == asynSuccess) {
     /* Set the parameter in the parameter library. */
     setIntegerParam(function, value);

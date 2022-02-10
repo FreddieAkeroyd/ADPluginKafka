@@ -313,7 +313,7 @@ protected:
                           /// the consumer.
 
   std::string ConnectionMessage;
-  int32_t UnsentMessages{0};
+  epicsInt32 UnsentMessages{0};
 
   /// @brief The root and broker json objects extracted from a json string.
   Json::Value root, brokers;
@@ -326,31 +326,31 @@ protected:
   /// @brief Used to shut down the stats thread.
   std::atomic_bool runThread{false};
 
-  Parameter<int32_t> ReconnectFlush{"KAFKA_RECONNECT_FLUSH",
-                                    [&](int32_t Value) {
+  Parameter<epicsInt32> ReconnectFlush{"KAFKA_RECONNECT_FLUSH",
+                                       [&](epicsInt32 Value) {
                                       AttemptFlushAtReconnect(bool(Value));
                                       return true;
                                     },
                                     [&]() { return doFlush; }};
-  Parameter<int32_t> ReconnectFlushTime{"KAFKA_FLUSH_TIME",
-                                        [&](int32_t Value) {
+  Parameter<epicsInt32> ReconnectFlushTime{"KAFKA_FLUSH_TIME",
+                                           [&](epicsInt32 Value) {
                                           FlushTimeout(Value);
                                           return true;
                                         },
                                         [&]() { return flushTimeout; }};
-  Parameter<int32_t> MsgBufferSize{
+  Parameter<epicsInt32> MsgBufferSize{
       "KAFKA_MSG_BUFFER_SIZE",
-      [&](int32_t Value) { return SetMessageBufferSizeKbytes(Value); },
+      [&](epicsInt32 Value) { return SetMessageBufferSizeKbytes(Value); },
       [&]() { return GetMessageBufferSizeKbytes(); }};
-  Parameter<int32_t> MaxMessageSize{
+  Parameter<epicsInt32> MaxMessageSize{
       "KAFKA_MAX_MSG_SIZE",
-      [&](int32_t Value) { return SetMaxMessageSize(Value); },
+      [&](epicsInt32 Value) { return SetMaxMessageSize(Value); },
       [&]() { return GetMaxMessageSize(); }};
-  Parameter<int32_t> UnsentPackets{"KAFKA_UNSENT_PACKETS",
-                                   [&](int32_t) { return false; },
+  Parameter<epicsInt32> UnsentPackets{"KAFKA_UNSENT_PACKETS",
+                                      [&](epicsInt32) { return false; },
                                    [&]() { return UnsentMessages; }};
-  Parameter<int32_t> KafkaStatus{"KAFKA_CONNECTION_STATUS",
-                                 [&](int32_t) { return false; },
+  Parameter<epicsInt32> KafkaStatus{"KAFKA_CONNECTION_STATUS",
+                                    [&](epicsInt32) { return false; },
                                  [&]() { return int(CurrentStatus); }};
   Parameter<std::string> KafkaMessage{"KAFKA_CONNECTION_MESSAGE",
                                       [&](std::string) { return false; },
@@ -362,13 +362,13 @@ protected:
       "KAFKA_BROKER_ADDRESS",
       [&](std::string NewValue) { return SetBrokerAddr(NewValue); },
       [&]() { return GetBrokerAddr(); }};
-  Parameter<int32_t> KafkaStatsInterval{
+  Parameter<epicsInt32> KafkaStatsInterval{
       "KAFKA_STATS_INT_MS",
-      [&](int32_t NewValue) { return SetStatsTimeMS(NewValue); },
+      [&](epicsInt32 NewValue) { return SetStatsTimeMS(NewValue); },
       [&]() { return GetStatsTimeMS(); }};
-  Parameter<int32_t> KafkaQueueSize{
+  Parameter<epicsInt32> KafkaQueueSize{
       "KAFKA_QUEUE_SIZE",
-      [&](int32_t NewValue) { return SetMessageQueueLength(NewValue); },
+      [&](epicsInt32 NewValue) { return SetMessageQueueLength(NewValue); },
       [&]() { return GetMessageQueueLength(); }};
 };
 } // namespace KafkaInterface

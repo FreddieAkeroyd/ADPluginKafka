@@ -17,12 +17,12 @@ ParameterHandler::ParameterHandler(asynPortDriver *DriverPtr)
 void ParameterHandler::registerParameter(ParameterBase *Param) {
   std::map<std::size_t, asynParamType> TypeMap{
       {typeid(Parameter<std::string>).hash_code(), asynParamOctet},
-      {typeid(Parameter<int64_t>).hash_code(), asynParamInt64},
-      {typeid(Parameter<int32_t>).hash_code(), asynParamInt32},
+      {typeid(Parameter<epicsInt64>).hash_code(), asynParamInt64},
+      {typeid(Parameter<epicsInt32>).hash_code(), asynParamInt32},
   };
   asynParamType ParameterType{TypeMap.at(typeid(*Param).hash_code())};
   int ParameterIndex;
-  Driver->createParam(Param->getParameterName().c_str(), ParameterType,
+  auto Result = Driver->createParam(Param->getParameterName().c_str(), ParameterType,
                       &ParameterIndex);
   KnownParameters[ParameterIndex] = Param;
   Param->registerRegistrar(this);
@@ -48,17 +48,17 @@ void ParameterHandler::updateDbValue(ParameterBase *ParamPtr) {
              UsedIndex,
              dynamic_cast<Parameter<std::string> *>(ParamPtr)->readValue());
        }},
-      {typeid(Parameter<int64_t>).hash_code(),
+      {typeid(Parameter<epicsInt64>).hash_code(),
        [&]() {
-         Driver->setInteger64Param(
+        Driver->setInteger64Param(
              UsedIndex,
-             dynamic_cast<Parameter<int64_t> *>(ParamPtr)->readValue());
+             dynamic_cast<Parameter<epicsInt64> *>(ParamPtr)->readValue());
        }},
-      {typeid(Parameter<int32_t>).hash_code(),
+       {typeid(Parameter<epicsInt32>).hash_code(),
        [&]() {
          Driver->setIntegerParam(
              UsedIndex,
-             dynamic_cast<Parameter<int32_t> *>(ParamPtr)->readValue());
+             dynamic_cast<Parameter<epicsInt32> *>(ParamPtr)->readValue());
        }},
   };
   CallMap.at(typeid(*ParamPtr).hash_code())();
