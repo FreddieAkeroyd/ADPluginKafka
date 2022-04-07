@@ -12,8 +12,6 @@
 
 #ADCORE := $(AREA_DETECTOR)/ADcore
 
--include $(TOP)/RELEASE.local
-
 AREA_DETECTOR = $(SUPPORT)/areaDetector/master
 SIMDET = $(AREA_DETECTOR)/ADSimDetector
 ZLIB = $(SUPPORT)/zlib/master
