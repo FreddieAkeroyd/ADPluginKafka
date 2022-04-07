@@ -11,3 +11,18 @@
 #EPICS_BASE := /opt/epics/base-3.15.5
 
 #ADCORE := $(AREA_DETECTOR)/ADcore
+
+AREA_DETECTOR = $(SUPPORT)/areaDetector/master
+SIMDET = $(AREA_DETECTOR)/ADSimDetector
+ZLIB = $(SUPPORT)/zlib/master
+LIBRDKAFKA = $(SUPPORT)/librdkafka/master
+OPENSSL = $(SUPPORT)/OpenSSL/master
+FLATBUFFERS = $(SUPPORT)/flatbuffers/master
+
+EPICS_KIT_ROOT=C:/Instrument/Apps/EPICS-DEBUG2
+EPICS_BASE=$(EPICS_KIT_ROOT)/base/master
+SUPPORT=$(EPICS_KIT_ROOT)/support
+
+include $(AREA_DETECTOR)/configure/RELEASE_SUPPORT.local
+-include $(AREA_DETECTOR)/configure/RELEASE_SUPPORT.local.$(EPICS_HOST_ARCH)
+include $(AREA_DETECTOR)/configure/RELEASE_LIBS.local

@@ -3,8 +3,22 @@
 # top directory each time this file is changed.
 
 ADPLUGINKAFKA = $(TOP)/../..
-SIMDET = /opt/epics/modules/areaDetector/ADSimDetector
+SIMDET = $(AREA_DETECTOR)/ADSimDetector
 
 -include $(TOP)/../../../configure/RELEASE_PRODS_INCLUDE
 -include $(TOP)/RELEASE.local
 -include $(TOP)/configure/RELEASE.local
+
+AREA_DETECTOR = $(SUPPORT)/areaDetector/master
+ZLIB = $(SUPPORT)/zlib/master
+LIBRDKAFKA = $(SUPPORT)/librdkafka/master
+OPENSSL = $(SUPPORT)/OpenSSL/master
+FLATBUFFERS = $(SUPPORT)/flatbuffers/master
+
+EPICS_KIT_ROOT=C:/Instrument/Apps/EPICS-DEBUG2
+EPICS_BASE=$(EPICS_KIT_ROOT)/base/master
+SUPPORT=$(EPICS_KIT_ROOT)/support
+
+include $(AREA_DETECTOR)/configure/RELEASE_SUPPORT.local
+-include $(AREA_DETECTOR)/configure/RELEASE_SUPPORT.local.$(EPICS_HOST_ARCH)
+include $(AREA_DETECTOR)/configure/RELEASE_LIBS.local
